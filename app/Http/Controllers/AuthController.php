@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use kamermans\OAuth2\GrantType\ClientCredentials;
 use kamermans\OAuth2\GrantType\AuthorizationCode;
 use kamermans\OAuth2\OAuth2Middleware;
-use GuzzleHttp\HandlerStack;
+// use GuzzleHttp\HandlerStack;
 // ----
 
 class AuthController extends Controller
@@ -117,7 +117,9 @@ class AuthController extends Controller
         $client_id = "805b2cf4-f4c7-441c-a45c-17f6a719eeed";
         $client_secret = "l7K3xVl_IeK7xnxBKihO04P8LR5saySx4tx2_kCI40JMxA0e1sFHFbf1VzrqAIcu3ZLdOjNaVKl16Ujt";
         // client_credentials
-        $content = "grant_type=client_credentials&scope=ameise/mitarbeiterwebservice";
+        // authorization_code
+        // ameise/mitarbeiterwebservice
+        $content = "grant_type=client_credentials&scope=openid";
         $authorization = base64_encode("$client_id:$client_secret");
 
         $header = array("Authorization: Basic {$authorization}", "Content-Type:application/x-www-form-urlencoded");
@@ -144,14 +146,17 @@ class AuthController extends Controller
     }
 
 
-    public function login32(Request $request)
+    public function login32()
     {
 
         // ['base_uri' => 'https://www.maklerinfo.biz']
         // config('service.ameise.login_endpoint')
-        $client = new Client(['base_uri' => 'https://auth.dionera.com/oauth2/auth']);
+        $client = new Client();
 
         try {
+
+            print_r('helll');
+            exit;
             $response = $client->post('https://auth.dionera.com/oauth2/token', [
                 'form_params' => [
                     'grant_type' => 'cleint_credentials',
@@ -159,8 +164,8 @@ class AuthController extends Controller
                     'client_secret' => 'l7K3xVl_IeK7xnxBKihO04P8LR5saySx4tx2_kCI40JMxA0e1sFHFbf1VzrqAIcu3ZLdOjNaVKl16Ujt',
                     'redirect_uri' => 'https://connect.arisecur.com/oauth/callback',
                     "state" => "abc123456",
-                    'code' => $request->code,
-                    "scope" => config('service.ameise.scope'),
+                    "scope" => 'openid',
+                    // "scope" => config('service.ameise.scope'),
                 ]
             ]);
             return json_decode((string) $response->getBody(), true)['access_token'];
