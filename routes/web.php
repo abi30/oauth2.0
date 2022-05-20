@@ -2,6 +2,7 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -18,6 +19,11 @@ use App\Http\Controllers\PostController;
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->get('api/login', 'AuthController@login');
+$router->get('api/login32', 'AuthController@login32');
+$router->post('api/loginold', 'AuthController@loginold');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 

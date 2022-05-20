@@ -6,8 +6,13 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "dusterio/lumen-passport": "^0.3.5",
         "flipbox/lumen-generator": "^9.1",
-        "laravel/lumen-framework": "^8.3.1"
+        "guzzlehttp/guzzle": "^7.4",
+        "kamermans/guzzle-oauth2-subscriber": "^1.0",
+        "laravel/lumen-framework": "^8.3.1",
+        "laravel/passport": "^10.4",
+        "phpfastcache/phpfastcache": "^8.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
